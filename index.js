@@ -24,14 +24,23 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("/api", (req, res) => {
+  time = new Date();
+  const unix = time.getTime();
+  const utc = time.toUTCString();
+
+  res.json({
+    unix: unix,
+    utc: utc
+  });
+})
+
 app.get("/api/:date", (req, res) => {
   let inputDate = req.params.date;
   let time;
 
   // check input data
-  if (!inputDate) {
-    time = new Date();
-  } else if (!isNaN(inputDate)) {
+  if (!isNaN(inputDate)) {
     time = new Date(Number(inputDate));
   } else {
     time = new Date(inputDate);
